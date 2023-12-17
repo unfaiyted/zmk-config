@@ -1,0 +1,14 @@
+
+/ {
+    macros {
+        password: password {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp N4 &kp N4 &kp N3 &kp N3 &kp N2 &kp N2 &kp N1 &kp N1>
+                , <&macro_release &kp LSHFT>
+                ;
+        };
+    };
+};

@@ -21,173 +21,147 @@
 #include "includes/mods.dtsi"
 #include "includes/morphs.dtsi"
 #include "includes/settings.dtsi"
+#include "includes/macros.dtsi"
+
+#define MEH LC(LS(LALT))
+#define CUT LS(DEL)
+#define COPY LC(INS)
+#define PASTE LS(INS)
+#define COMPOSE K_CMENU
 
 / {
         keymap {
-                compatible = "zmk,keymap";
-                default_layer {
-                  label = "Base";
+  compatible = "zmk,keymap";
+
+  // ,------------------------------.          ,------------------------------.
+  // |  Q  |  W  | Me+E |  R  |  T  |          |  Y  |  U  | Me+I |  O  |  P  | 
+  // |-----+-----+------+-----+-----|          |-----+-----+------+-----+-----|
+  // | A/LG| S/LA| D/LC | F/LS|  G  |          |  H  | J/LS| K/LC | L/LA|;L/LG|
+  // |-----+-----+------+-----+-----|          |-----+-----+------+-----+-----|
+  // |  Z  |  X  |  C   |  V  |  B  |          |  N  |  M  |  ,   |  .  |  /  | 
+  // `-----+-----+------+------+----.--.    ,--`-----+-----+------+-----+-----'
+  //                   |T/Bs|L/Esc|A/Sp|    |A/En|R/Bs|Func|
+  //                   `----+-----+----.    `----+----+----'
+
+  default_layer {
+    label = "Base";
+    bindings = <
+        _LTX  &kp Q        &kp W       &kp E        &kp R         &kp T               &kp Y          &kp U          &kp I          &kp O        &kp P           _RTX
+        _LMX  &hml LGUI A  &hml LALT S &hml LCTRL D &hml LSHIFT F &kp G               &kp H          &hmr RSHIFT J  &hmr RCTRL K   &hmr RALT L  &hmr RGUI SEMI  _RMX
+        _LBX  &kp Z        &kp X       &kp C        &kp V         &kp B      _MBX     &kp N          &kp M          &kp COMMA      &kp DOT      &kp FSLH        _RBX
+        _LHX  &lt SETTINGS TAB &lt LOWER ESC &lt ADJUST SPACE     &lt ADJUST RET      &lt RAISE BSPC &lt FUNCTION DEL _RHX
+          >;
+  };
+
+    // _LOWER
+    // ,------------------------------------.          ,------------------------------.
+    // | LGuiQ | LCtlW | LCSTb | LCTb | LCT |          |  \# |  {  |   }  |  %  |  =  |
+    // |-------+-------+-------+------+-----|          |-----+-----+------+-----+-----|
+    // |  LGui |  LAlt | LCtrl |LShift|     |          |  [  |  (  |   )  |  ]  |Grave|
+    // +-------+-------+-------+------+-----|          |-----+-----+------+-----+-----|
+    // |  Undo |  Cut  | Copy  |Paste |     |          |  ^  |  <  |   >  |  $  |  /  |
+    // `-------+-------+-------+------+-----.---.    ,--`-----+-----+------+-----+----'
+    //                         |WWSrch|     |   |    |  _  | - |  +  |
+    //                         `------+-----+---.    `----+----+----'
 
 
-# // ,------------------------------.          ,------------------------------.
-# // |  Q  |  W  | Me+E |  R  |  T  |          |  Y  |  U  | Me+I |  O  |  P  | 
-# // |-----+-----+------+-----+-----|          |-----+-----+------+-----+-----|
-# // | A/LG| S/LA| D/LC | F/LS|  G  |          |  H  | J/LS| K/LC | L/LA|;L/LG|
-# // |-----+-----+------+-----+-----|          |-----+-----+------+-----+-----|
-# // |  Z  |  X  |  C   |  V  |  B  |          |  N  |  M  |  ,   |  .  |  /  | 
-# // `-----+-----+------+------+----.--.    ,--`-----+-----+------+-----+-----'
-# //                   |T/Bs|L/Esc|A/Sp|    |A/En|R/Bs|Func|
-# //                   `----+-----+----.    `----+----+----'
-
-                        bindings = <
-   _LTX &kp Q        &kp W       &kp E        &kp R         &kp T               &kp Y   &kp U          &kp I        &kp O        &kp P           _RTX
-   _LMX &hml LGUI A  &hml LALT S &hml LCTRL D &hml LSHIFT F &kp G               &kp H   &hmr RSHIFT J  &hmr RCTRL K &hmr RALT L  &hmr RGUI SEMI  _RMX
-   _LBX &kp Z        &kp X       &kp C        &kp V         &kp B      _MBX     &kp N &kp M          &kp COMMA    &kp DOT      &kp FSLH        _RBX
-                      _LHX  &lt SETTINGS TAB &lt LOWER ESC &lt ADJUST SPACE        &lt ADJUST RET   &lt RAISE BSPC &lt FUNCTION DEL _RHX
-                        >;
-                };
-
-                lower_layer {
-                  label = "Symbol";
-
-# // _LOWER
-# // ,------------------------------------.          ,------------------------------.
-# // | LGuiQ | LCtlW | LCSTb | LCTb | LCT |          |  #  |  {  |   }  |  %  |  =  |
-# // |-------+-------+-------+------+-----|          |-----+-----+------+-----+-----|
-# // |  LGui |  LAlt | LCtrl |LShift|     |          |  [  |  (  |   )  |  ]  |Grave|
-# // +-------+-------+-------+------+-----|          |-----+-----+------+-----+-----|
-# // |  Undo |  Cut  | Copy  |Paste |     |          |  ^  |  <  |   >  |  $  |  /  |
-# // `-------+-------+-------+------+-----.---.    ,--`-----+-----+------+-----+-----'
-# //                         |WWSrch|     |   |    |  _  | - |  +  |
-# //                         `------+-----+---.    `----+----+----'
-
-                  bindings = <
-                    _LTX &kp LG(Q) &kp LC(W) &kp LC(LS(TAB)) &kp LC(TAB) &kp LC(T)           &kp HASH &kp LBRC  &kp RBRC  &kp PRCNT  &kp EQUAL  _RTX
-                    _LMX &kp LGUI &kp LALT &kp LCTRL &kp LSHFT  &trans                       &kp LBKT  &kp  LPAR &kp RPAR  &kp RBKT   &kp TILDE   _RMX
-                    _LBX &kp K_UNDO &kp K_COPY &kp K_COPY &kp PASTE   &trans   _MBX          &kp CARET &kp LT &kp GT &kp DLLR  &kp SLASH   _RBX
-                    _LHX               &kp C_AC_SEARCH  &trans     &trans                             &kp UNDER   &kp MINUS &kp PLUS                       _RHX
-                    >;
-                };
-                # bindings = <
-                #     _LTX &trans &trans &kp PRCNT &kp PIPE &kp PLUS           &kp MINUS &kp LPAR  &kp RPAR &kp AT    &kp QMARK  _RTX
-                #     _LMX &trans &trans &kp EXCL &kp EQUAL &kp STAR           &kp CARET &kp LBRC  &kp RBRC &kp DLLR  &kp HASH   _RMX
-                #     _LBX &trans &trans &kp DOT &kp AMPS   &kp FSLH   _MBX    &kp UNDER &kp LBKT  &kp RBKT &kp TILDE &kp BSLH   _RBX
-                #     _LHX               &trans  &trans     &trans             &kp DQT   &kp GRAVE &kp SQT                       _RHX
-                #     >;
-                # };
+  lower_layer {
+      label = "Symbol";
+      bindings = <
+        _LTX &kp LG(Q) &kp LC(W) &kp LC(LS(TAB)) &kp LC(TAB) &kp LC(T)           &kp HASH &kp LBRC  &kp RBRC  &kp PRCNT  &kp EQUAL    _RTX
+        _LMX &kp LGUI &kp LALT &kp LCTRL &kp LSHFT  &trans                       &kp LBKT  &kp  LPAR &kp RPAR  &kp RBKT   &kp TILDE   _RMX
+        _LBX &kp K_UNDO &kp CUT &kp COPY &kp PASTE  &trans   _MBX          &kp CARET &kp LT &kp GT &kp DLLR  &kp SLASH          _RBX
+        _LHX               &kp C_AC_SEARCH  &trans     &trans                             &kp UNDER   &kp MINUS &kp PLUS              _RHX
+        >;
+  };
 
 
-
-                raise_layer {
-                  label = "Number";
-
-# // -----------------------------------------------------------------------------------------
-# // |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |
-# // | BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |
-# // |     |     |     |     |     |   |     |     |     |     |     |
-# //             | GUI |     | SPC |   | ENT |     | ALT |
-#
-
-# // RAISE Layer:
-# // ,------------------------------.           -----------------------------.
-# // |  !   |  7  |  8  |  9  |  %  |          |  &  |  /  |  |  |  \  |  *  |
-# // |------+-----+-----+-----+-----|          |-----+-----+-----+-----+-----|
-# // |  @   |  4  |  5  |  6  |  0  |          |Left |Down | Up  |Right|RGui |
-# // |------+-----+-----+-----+-----|          |-----+-----+-----+-----+-----|
-# // | Pass |  1  |  2  |  3  |  .  |          |Home |PgDn |PgUp | End |     |
-# // .------+-----+-----+-----+-----'--.    .--`-----+-----+-----+-----+-----'
-# //                  |     |     | .  |    |    |     |     |
-# //                  `-----+-----+----'    `----+-----+-----'
+    // RAISE Layer:
+    // ,------------------------------.           -----------------------------.
+    // |  !   |  7  |  8  |  9  |  %  |          |  &  |  /  |  |  |  \  |  *  |
+    // |------+-----+-----+-----+-----|          |-----+-----+-----+-----+-----|
+    // |  @   |  4  |  5  |  6  |  0  |          |Left |Down | Up  |Right|RGui |
+    // |------+-----+-----+-----+-----|          |-----+-----+-----+-----+-----|
+    // | Pass |  1  |  2  |  3  |  .  |          |Home |PgDn |PgUp | End |     |
+    // .------+-----+-----+-----+-------.    .--`-----+-----+-----+-----+-----'
+    //                  |     |     | .  |    |    |     |     |
+    //                  `-----+-----+----    `----+-----+-----'
 
 
-                   bindings = <
-                       _LTX &kp EXCL  &kp N7   &kp N8    &kp N9   &kp PRCNT               &kp AMPS      &kp FSLH     &kp PIPE &kp BSLH     &kp STAR   _RTX
-                       _LMX &kp AT    &kp N4   &kp N5    &kp N6   &kp N0                  &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &trans _RMX
-                       _LBX &kp PASS  &kp N1   &kp N2    &kp N3   &kp DOT     _MBX        &kp HOME     &kp PG_UP     &kp PG_DOWN     &kp END     &trans _RBX
-                       _LHX                           &trans       &trans       &kp DOT                      &trans     &trans     &trans                       _RHX
-                       >;
+  raise_layer {
+    label = "Number";
 
-                                  };
+      bindings = <
+          _LTX &kp EXCL   &kp N7   &kp N8    &kp N9   &kp PRCNT               &kp AMPS     &kp FSLH     &kp PIPE      &kp BSLH    &kp ASTERISK   _RTX
+          _LMX &kp AT     &kp N4   &kp N5    &kp N6   &kp N0                  &kp LEFT     &kp DOWN     &kp UP        &kp RIGHT   &trans     _RMX
+          _LBX &kp N0 &kp N1 &kp N2 &kp N3  &kp DOT   _MBX          &kp HOME &kp PG_DN &kp PG_UP &kp END  &trans          _RBX
+          _LHX                           &trans       &trans       &kp DOT                      &trans     &trans     &trans                 _RHX
+          >;
 
-
-               function_layer {
-                  label = "Function";
-
-#  FUNC Layer:
-#  ,----------------------------.           ,-----------------------------.
-#  |F12  |F7   |F8   |F9  |PScr |           |     |     |     |     |     |
-#  +-----+-----+-----+----+-----|           |-----+-----+-----+-----+-----|
-#  |F11  |F4   |F5   |F6  |     |           |     |RShft|RCtrl|RAlt |RGui |
-#  +-----+-----+-----+----+-----|           |-----+-----+-----+-----+-----|
-#  |F10  |F1   |F2   |F3  |     |           |     |     |     |     |     |
-#  .-----+-----+-----+----+-----'--.     .--`-----+-----+-----+-----+-----'
-#                 |     |     |    |     |    |     |     |
-#                 `-----+-----+----'     `----+-----+-----'
-
-                   bindings = <
-                       _LTX &kp F12    &kp F7   &kp F8    &kp F9   &kp PSCRN                   &trans      &trans     &trans &trans     &trans   _RTX
-                       _LMX &kp F11    &kp F4   &kp F5    &kp F6   &trans                      &trans   &kp RSHIFT   &kp RCTRL    &kp RALT  &kp RGUI _RMX
-                       _LBX &kp F10    &kp F1   &kp F2    &kp F3   &trans          _MBX        &trans     &trans     &trans     &trans     &trans _RBX
-                       _LHX                     &trans       &trans       &trans               &trans     &trans     &trans                       _RHX
-                       >;
-                  
-                                  };
+  };
 
 
-               adjust_layer {
-                  label = "Adjust";
+  //  FUNC Layer:
+  //  ,----------------------------.           ,-----------------------------.
+  //  |F12  |F7   |F8   |F9  |PScr |           |     |     |     |     |     |
+  //  +-----+-----+-----+----+-----|           |-----+-----+-----+-----+-----|
+  //  |F11  |F4   |F5   |F6  |     |           |     |RShft|RCtrl|RAlt |RGui |
+  //  +-----+-----+-----+----+-----|           |-----+-----+-----+-----+-----|
+  //  |F10  |F1   |F2   |F3  |     |           |     |     |     |     |     |
+  // .-----+-----+-----+----+--------.     .--`-----+-----+-----+-----+-----'
+  //                 |     |     |    |     |    |     |     |
+  //                 `-----+-----+----.     `----+-----+-----'
+  function_layer {
+    label = "Function";
+      bindings = <
+          _LTX &kp F12    &kp F7   &kp F8    &kp F9   &kp PSCRN                   &trans      &trans     &trans &trans     &trans   _RTX
+          _LMX &kp F11    &kp F4   &kp F5    &kp F6   &trans                      &trans   &kp RSHIFT   &kp RCTRL    &kp RALT  &kp RGUI _RMX
+          _LBX &kp F10    &kp F1   &kp F2    &kp F3   &trans          _MBX        &trans     &trans     &trans     &trans     &trans _RBX
+          _LHX                     &trans       &trans       &trans               &trans     &trans     &trans                       _RHX
+          >;
+  };
 
-# // ADJUST Layer:
-# // ,----------------------------.           ,---------------------------.
-# // |    |     | mup |     |     |           | ⚡️  |🔽  |🔼  |     |     |
-# // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
-# // |    | mlef| mdwn|mrgt |     |           | 🔇  |🔉  |🔊  |     |     |
-# // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
-# // |🔄  |     |     |     |     |           |     |⏬  |⏫  |     |🔄   |
-#    .-----+-----+-----+----+-----'--.     .--`-----+----+----+-----+-----'
-#                   |     |     |    |     | ▶️  | ⏮️  |⏭️  |   
-#                   `-----+-----+----'     `----+-----+-----'
-#
-#
-                   bindings = <
-                       _LTX &kp F12    &kp F7   &kp F8    &kp F9   &kp PSCRN                   &trans      &trans     &trans &trans     &trans   _RTX
-                       _LMX &kp F11    &kp F4   &kp F5    &kp F6   &trans                      &kp C_MUTE   &kp C_VOL_DOWN   &kp C_VOL_UP    &trans  &trans _RMX
-                       _LBX &kp F10    &kp F1   &kp F2    &kp F3   &trans          _MBX        &trans     &trans     &trans     &trans     &trans _RBX
-                       _LHX                     &trans       &trans       &trans               &kp C_PP     &kp C_PREV    &kp C_NEXT                       _RHX
-                       >;
-                  
-                                  };
+  // ADJUST Layer:
+  // ,----------------------------.           ,---------------------------.
+  // |    |     | mup |     |     |           | ⚡️  |🔽  |🔼  |     |     |
+  // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
+  // |    | mlef| mdwn|mrgt |     |           | 🔇  |🔉  |🔊  |     |     |
+  // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
+  // |🔄  |     |     |     |     |           |     |⏬  |⏫  |     |🔄   |
+  //    .-----+-----+-----+----+-------.     .--`-----+----+----+-----+-----'
+  //                   |     |     |    |     | ▶️  | ⏮️  |⏭️  |   
+  //                   `-----+-----+----.     `----+-----+-----'
 
-
-
-     settings_layer {
-                  label = "Settings";
-
-
-# // SETTINGS Layer:
-# // ,----------------------------.           ,---------------------------.
-# // |    |     |     |     |     |           | ⚡️  |🔽  |🔼  |     |     |
-# // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
-# // |    |     |     |     |     |           | 🔇  |🔉  |🔊  |     |     |
-# // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
-# // |🔄  |     |     |     |     |           |     |⏬  |⏫  |     |🔄   |
-#    .-----+-----+-----+----+-----'--.     .--`-----+----+----+-----+-----'
-#                   |     |     |    |     | ▶️  | ⏮️  |⏭️  |   
-#                   `-----+-----+----'     `----+-----+-----'
-#
-#
-                   bindings = <
-                       _LTX &kp F12    &kp F7   &kp F8    &kp F9   &kp PSCRN                   &trans      &trans     &trans &trans     &trans   _RTX
-                       _LMX &kp F11    &kp F4   &kp F5    &kp F6   &trans                      &kp C_MUTE   &kp C_VOL_UP   &kp C_VOL_DOWN    &trans  &trans _RMX
-                       _LBX &kp F10    &kp F1   &kp F2    &kp F3   &trans          _MBX        &trans     &trans     &trans     &trans     &trans _RBX
-                       _LHX                     &trans       &trans       &trans               &trans     &trans     &trans                       _RHX
-                       >;
-                  
-                                  };
+  adjust_layer {
+    label = "Adjust";
+      bindings = <
+          _LTX &kp F12    &kp F7   &kp F8    &kp F9   &kp PSCRN                   &trans      &trans     &trans &trans     &trans   _RTX
+          _LMX &kp F11    &kp F4   &kp F5    &kp F6   &trans                      &kp C_MUTE   &kp C_VOL_DN   &kp C_VOL_UP    &trans  &trans _RMX
+          _LBX &kp F10    &kp F1   &kp F2    &kp F3   &trans          _MBX        &trans     &trans     &trans     &trans     &trans _RBX
+          _LHX                     &trans       &trans       &trans               &kp C_PP     &kp C_PREV    &kp C_NEXT                       _RHX
+          >;
+  };
 
 
+  // SETTINGS Layer:
+  // ,----------------------------.           ,---------------------------.
+  // |    |     |     |     |     |           | ⚡️  |🔽  |🔼  |     |     |
+  // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
+  // |    |     |     |     |     |           | 🔇  |🔉  |🔊  |     |     |
+  // |----+-----+-----+-----+-----|           |-----+----+----+-----+-----|
+  // |    |     |     |     |     |           |     |⏬  |⏫  |     |🔄   |
+  // .-----+-----+-----+----+-------.     .--`-----+----+----+-----+-----'
+  //                   |     |     |    |     | ▶️  | ⏮️  |⏭️  |   
+  //                   `-----+-----+----.     `----+-----+-----'
 
-
-
-        };
+    settings_layer {
+          label = "Settings";
+          bindings = <
+              _LTX &kp F12    &kp F7   &kp F8    &kp F9   &kp PSCRN                   &trans      &trans     &trans &trans     &trans   _RTX
+              _LMX &kp F11    &kp F4   &kp F5    &kp F6   &trans                      &kp C_MUTE   &kp C_VOL_UP   &kp C_VOL_DN    &trans  &trans _RMX
+              _LBX &kp F10    &kp F1   &kp F2    &kp F3   &trans          _MBX        &trans     &trans     &trans     &trans     &trans _RBX
+              _LHX                     &trans       &trans       &trans               &trans     &trans     &trans                       _RHX
+          >;
+    };
+  };
 };
