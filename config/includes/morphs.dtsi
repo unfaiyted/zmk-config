@@ -7,5 +7,12 @@
       bindings = <&kp BSPC>, <&kp DEL>;
       mods = <(MOD_RSFT)>;
     };  
+   q_tilde_morph: q_tilde_morph {
+      compatible = "zmk,behavior-mod-morph";
+      label = "Q_TILDE_MORPH";
+      #binding-cells = <0>;
+      bindings = <&kp Q>, <&kp TILDE>;
+      mods = <(MOD_RSFT)>;
+    };  
   };
 };
