@@ -20,6 +20,7 @@
 
 #include "keys/base.h"
 #include "includes/mods.dtsi"
+#include "includes/dances.dtsi"
 #include "includes/morphs.dtsi"
 #include "includes/settings.dtsi"
 #include "includes/macros.dtsi"
@@ -35,7 +36,7 @@
   compatible = "zmk,keymap";
 
   // ,------------------------------.          ,-------------------------------.
-  // |  Q  |  W  | Me+E |  R  |  T  |          |  Y  |  U  | Me+I |  O   |  P  | 
+  // | Q/~ |  W  | Me+E |  R  |  T  |          |  Y  |  U  | Me+I |  O   |  P  | 
   // |-----+-----+------+-----+-----|          |-----+-----+------+------+-----|
   // | A/LG| S/LA| D/LC | F/LS|  G  |          |  H  | J/LS| K/LC | L/LA |;/LG |
   // |-----+-----+------+-----+-----|          |-----+-----+------+------+-----|
@@ -47,7 +48,7 @@
   default_layer {
     label = "Base";
     bindings = <
-        _LTX  &q_tilde_morph        &kp W       &kp E        &kp R         &kp T               &kp Y          &kp U          &kp I          &kp O        &kp P           _RTX
+        _LTX  &td_q_tilde        &kp W       &kp E        &kp R         &kp T               &kp Y          &kp U          &kp I          &kp O        &kp P           _RTX
         _LMX  &hml LGUI A  &hml LALT S &hml LCTRL D &hml LSHIFT F &kp G               &kp H          &hmr RSHIFT J  &hmr RCTRL K   &hmr RALT L  &hmr RGUI SEMI  _RMX
         _LBX  &kp Z        &kp X       &kp C        &kp V         &kp B      _MBX     &kp N          &kp M          &kp COMMA      &kp DOT      &kp FSLH        _RBX
         _LHX                  &lt SETTINGS TAB &lt LOWER ESC &lt ADJUST SPACE                &lt ADJUST RET      &lt RAISE BSPC    &lt FUNCTION DEL _RHX
@@ -70,7 +71,7 @@
       label = "Symbol";
       bindings = <
         _LTX &kp LG(Q) &kp LC(W) &kp LC(LS(TAB)) &kp LC(TAB) &kp LC(T)           &kp HASH &kp LBRC  &kp RBRC  &kp PRCNT  &kp EQUAL    _RTX
-        _LMX &kp LGUI &kp LALT &kp LCTRL &kp LSHFT  &trans                       &kp LBKT  &kp  LPAR &kp RPAR  &kp RBKT   &kp GRAVE   _RMX
+        _LMX &kp LGUI &kp LALT &kp LCTRL &kp LSHFT  &trans                       &kp LBKT  &kp  LPAR &kp RPAR  &kp RBKT   &kp APOS  _RMX
         _LBX &kp K_UNDO &kp CUT &kp COPY &kp PASTE  &trans   _MBX          &kp CARET &kp LT &kp GT &kp DLLR  &kp SLASH          _RBX
         _LHX               &kp C_AC_SEARCH  &trans     &trans                             &kp UNDER   &kp MINUS &kp PLUS              _RHX
         >;
@@ -159,8 +160,8 @@
           label = "Settings";
           bindings = <
               _LTX &bt BT_CLR  &trans         &bt BT_NXT      &bt BT_PRV     &trans                      &trans       &trans         &trans          &trans     &trans _RTX
-              _LMX &trans      &bt BT_SEL 4   &bt BT_SEL 5    &bt BT_SEL 6   &trans                      &kp C_MUTE   &kp C_VOL_UP   &kp C_VOL_DN    &trans     &trans _RMX
-              _LBX &trans      &bt BT_SEL 1   &bt BT_SEL 2    &bt BT_SEL 3   &trans          _MBX        &trans       &trans         &trans          &trans     &trans _RBX
+              _LMX &trans      &bt BT_SEL 3   &bt BT_SEL 4    &bt BT_SEL 5   &trans                      &kp C_MUTE   &kp C_VOL_UP   &kp C_VOL_DN    &trans     &trans _RMX
+              _LBX &trans      &bt BT_SEL 0   &bt BT_SEL 1    &bt BT_SEL 2   &trans          _MBX        &trans       &trans         &trans          &trans     &trans _RBX
               _LHX                     &trans       &trans       &trans               &trans     &trans     &trans                                                     _RHX
           >;
     };
